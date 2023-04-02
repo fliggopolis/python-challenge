@@ -1,5 +1,6 @@
 import csv
 import os
+import sys
 
 months = []
 income = 0
@@ -27,7 +28,7 @@ with open(budget_data_csv) as csv_file:
     for i in range(1, len(monthly_income)):
         net_change =  int(monthly_income[i]) - int(monthly_income[i-1])
         monthly_change.append(net_change)
-        print(change)
+        #print(change)
         if net_change > greatest_increase[1]:
             greatest_increase[0] = months[i]
             greatest_increase[1] = net_change
@@ -41,19 +42,28 @@ with open(budget_data_csv) as csv_file:
     # greatest_loss = min(monthly_change)
     
    
-   #calculate greatest increase
-    
-    
-   #Results output
-    print("Financial Analysis")
-    print("---------------------------------")
-    print("Total Months: " + str(len(months)))  
-    print("Total: $" + str(income))
-    print("Average Change: $" + str(Avg_monthly_change))
-    print(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})")
-    print(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})")
-   
+  
+        
+   #Results output function
+    def print_output():
+        print("Financial Analysis")
+        print("---------------------------------")
+        print("Total Months: " + str(len(months)))  
+        print("Total: $" + str(income))
+        print("Average Change: $" + str(Avg_monthly_change))
+        print(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})")
+        print(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})")
+        
     #print(str(len(monthly_change)))
+
+     #code function taken from howtodoinjava.com
+    original_stdout = sys.stdout
+    with open("analysis/Financial_Analysis.text", 'w') as f:
+        sys.stdout = f
+        print_output()
+        sys.stdout= original_stdout
+    
+    print_output()
 
 
     # print(str(greatest_increase[0]))
