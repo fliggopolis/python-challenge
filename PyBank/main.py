@@ -14,21 +14,21 @@ budget_data_csv = os.path.join("..", "Starter_Code", "PyBank", "Resources", "bud
 with open(budget_data_csv) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
     csv_header = next(csv_file)
-    #print(f"Header: {csv_header}")
-
+    
+    #creates a list of monthly income and calculates total income over the time period
     for row in csv_reader:
-        #print(row[0])
+        
         months.append(row[0])
         income += int(row[1])
         monthly_income.append(row[1])
-    #print(months)
+    
     
 
-
+    #calculate and store greatest increase and greatest decrease for income 
     for i in range(1, len(monthly_income)):
         net_change =  int(monthly_income[i]) - int(monthly_income[i-1])
         monthly_change.append(net_change)
-        #print(change)
+    
         if net_change > greatest_increase[1]:
             greatest_increase[0] = months[i]
             greatest_increase[1] = net_change
@@ -38,8 +38,7 @@ with open(budget_data_csv) as csv_file:
         Avg_monthly_change = sum(monthly_change) / len(monthly_change)
     
     
-    # greatest_profit = max(monthly_change)
-    # greatest_loss = min(monthly_change)
+    
     
    
   
@@ -54,7 +53,7 @@ with open(budget_data_csv) as csv_file:
         print(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})")
         print(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})")
         
-    #print(str(len(monthly_change)))
+   
 
      #code function taken from howtodoinjava.com
     original_stdout = sys.stdout
@@ -65,8 +64,3 @@ with open(budget_data_csv) as csv_file:
     
     print_output()
 
-
-    # print(str(greatest_increase[0]))
-    # print(str(greatest_increase[1]))
-
-    # print(str(months))
